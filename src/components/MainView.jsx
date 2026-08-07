@@ -207,8 +207,8 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
     return (
       <div className="flex flex-col gap-6 md:gap-8 animate-fade-in">
         
-        {/* Starboy Featured Hero Banner */}
-        <div className="relative p-5 md:p-10 rounded-3xl overflow-hidden glass-panel border border-sky-500/40 bg-gradient-to-r from-slate-950 via-sky-950 to-slate-900 shadow-2xl">
+        {/* Starboy Featured Hero Banner (Desktop only) */}
+        <div className="hidden md:block relative p-5 md:p-10 rounded-3xl overflow-hidden glass-panel border border-sky-500/40 bg-gradient-to-r from-slate-950 via-sky-950 to-slate-900 shadow-2xl">
           <div className="relative z-10 max-w-xl flex flex-col gap-2 md:gap-3">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-red-500/20 border border-red-400/40 text-red-300 text-[10px] md:text-xs font-extrabold w-max shadow-sm">
               <Star className="w-3.5 h-3.5 fill-red-400 text-red-400" />
@@ -241,8 +241,8 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
           </div>
         </div>
 
-        {/* Quick Play Grid */}
-        <div>
+        {/* Quick Play Grid (Desktop only) */}
+        <div className="hidden md:block">
           <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Outfit' }}>
             Quick Play
           </h3>
@@ -276,8 +276,8 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
           </div>
         </div>
 
-        {/* Featured Playlists */}
-        <div>
+        {/* Featured Playlists (Desktop only) */}
+        <div className="hidden md:block">
           <h3 className="text-xl font-bold text-white mb-4" style={{ fontFamily: 'Outfit' }}>Featured Collections</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {FEATURED_PLAYLISTS.map(pl => (
@@ -298,7 +298,7 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
 
         {/* Trending Hits Table */}
         <div>
-          <div className="flex items-center gap-2 mb-4">
+          <div className="hidden md:flex items-center gap-2 mb-4">
             <Flame className="w-5 h-5 text-sky-400" />
             <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Outfit' }}>Top 50 Global Songs</h3>
           </div>
@@ -330,8 +330,9 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
   );
 
   const TrackTable = ({ songsList, showRank = false }) => (
-    <div className="glass-panel rounded-2xl overflow-hidden border border-slate-800 bg-slate-950/60">
-      <table className="w-full text-left text-xs">
+    <div className="glass-panel md:rounded-2xl md:overflow-hidden md:border border-slate-800 bg-slate-950/60 w-full">
+      {/* Desktop Table View */}
+      <table className="hidden md:table w-full text-left text-xs">
         <thead className="border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
           <tr>
             <th className="p-4 w-12 text-center">#</th>
@@ -403,6 +404,60 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
           })}
         </tbody>
       </table>
+
+      {/* Mobile Edge-to-Edge List View (Matches screenshot design) */}
+      <div className="md:hidden flex flex-col divide-y divide-slate-800/40">
+        {songsList.map((song, index) => {
+          const isCurrent = currentSong.id === song.id;
+          const isLiked = likedSongIds.includes(song.id);
+          return (
+            <div
+              key={song.id}
+              onClick={() => playSong(song)}
+              className={`flex items-center justify-between py-4 px-2 hover:bg-slate-800/20 active:bg-slate-800/40 transition-colors ${
+                isCurrent ? 'text-sky-300 font-bold' : 'text-slate-300'
+              }`}
+            >
+              <div className="flex items-center gap-4 flex-1 min-w-0">
+                {/* Track Number */}
+                <span className="text-sm font-semibold text-slate-400 w-5 text-center flex-shrink-0">
+                  {index + 1}
+                </span>
+                {/* Album Art */}
+                <img 
+                  src={song.coverUrl} 
+                  alt={song.title} 
+                  className="w-12 h-12 rounded-xl object-cover shadow-md flex-shrink-0" 
+                />
+                {/* Song Metadata */}
+                <div className="truncate flex-1 min-w-0">
+                  <p className={`font-semibold text-sm truncate ${isCurrent ? 'text-sky-300' : 'text-white'}`}>
+                    {song.title}
+                  </p>
+                  <p className="text-xs text-slate-400 truncate mt-0.5">{song.artist}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 flex-shrink-0 ml-4">
+                {/* Duration */}
+                <span className="text-xs text-slate-400 font-mono">
+                  {formatDuration(song.duration)}
+                </span>
+                {/* Heart Icon */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleLikeSong(song.id);
+                  }}
+                  className="p-1"
+                >
+                  <Heart className={`w-4.5 h-4.5 ${isLiked ? 'text-sky-400 fill-sky-400' : 'text-slate-500'}`} />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 
