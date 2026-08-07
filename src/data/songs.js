@@ -128,6 +128,79 @@ const RAW_INITIAL_SONGS = [
       { time: 15, text: "Uppenantha ee premaki..." },
       { time: 28, text: "Guppedantha gunde chala..." }
     ]
+  },
+  {
+    id: "mein_tera_boyfriend",
+    title: "Mein Tera Boyfriend",
+    artist: "Arijit Singh & Neha Kakkar",
+    album: "Raabta OST",
+    genre: "Bollywood Pop",
+    duration: 276,
+    coverUrl: "covers/cover3.jpg",
+    audioUrl: "audio/mein_tera_boyfriend.m4a",
+    plays: "354,820,400",
+    liked: true,
+    rank: 8,
+    lyrics: [
+      { time: 0, text: "♪ (Mein Tera Boyfriend Dance Beat Intro) ♪" },
+      { time: 10, text: "Duniya me kitni hai nafratein..." },
+      { time: 20, text: "Na jaane koi..." },
+      { time: 30, text: "Mein tera boyfriend... Tu meri girlfriend..." }
+    ]
+  },
+  {
+    id: "monica",
+    title: "Monica",
+    artist: "Anirudh Ravichander & Sublahshini",
+    album: "Coolie OST",
+    genre: "Kollywood Dance-Pop",
+    duration: 172,
+    coverUrl: "covers/cover4.jpg",
+    audioUrl: "audio/monica.m4a",
+    plays: "12,940,300",
+    liked: true,
+    rank: 9,
+    lyrics: [
+      { time: 0, text: "♪ (Retro Disco Synth Intro) ♪" },
+      { time: 10, text: "Monica Monica... Oh my dear monica..." },
+      { time: 20, text: "Disco Raja comes to play..." }
+    ]
+  },
+  {
+    id: "majboor",
+    title: "Majboor",
+    artist: "Sheheryar Rehan",
+    album: "Majboor (Single)",
+    genre: "Pakistani Indie / Pop",
+    duration: 218,
+    coverUrl: "covers/cover5.jpg",
+    audioUrl: "audio/majboor.m4a",
+    plays: "2,390,400",
+    liked: false,
+    rank: 10,
+    lyrics: [
+      { time: 0, text: "♪ (Soft acoustic guitar intro) ♪" },
+      { time: 12, text: "Dil se jo chaha vo mila nahi..." },
+      { time: 25, text: "Majboor hu is qadar..." }
+    ]
+  },
+  {
+    id: "dil_ka_jo_haal",
+    title: "Dil Ka Jo Haal Hai",
+    artist: "Abhijeet Bhattacharya & Shreya Ghoshal",
+    album: "Besharam OST",
+    genre: "Bollywood Pop / Romance",
+    duration: 288,
+    coverUrl: "covers/cover1.jpg",
+    audioUrl: "audio/dil_ka_jo_haal.m4a",
+    plays: "54,203,900",
+    liked: true,
+    rank: 11,
+    lyrics: [
+      { time: 0, text: "♪ (Upbeat Bollywood romance intro) ♪" },
+      { time: 15, text: "Dil ka jo haal hai, kahoon ya na kahoon..." },
+      { time: 30, text: "Hai kaisa ye nasha..." }
+    ]
   }
 ];
 
