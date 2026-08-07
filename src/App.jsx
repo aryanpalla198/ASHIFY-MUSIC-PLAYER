@@ -31,7 +31,7 @@ export function AppContent() {
       />
 
       {/* Main Content Area */}
-      <div className="flex flex-col flex-1 overflow-hidden relative">
+      <div className="flex flex-col flex-1 overflow-hidden relative" style={{ gridArea: 'main' }}>
         <Navbar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

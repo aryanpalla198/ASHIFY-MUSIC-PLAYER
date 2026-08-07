@@ -205,19 +205,19 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
 
     // Default Home View
     return (
-      <div className="flex flex-col gap-8 animate-fade-in">
+      <div className="flex flex-col gap-6 md:gap-8 animate-fade-in">
         
         {/* Starboy Featured Hero Banner */}
-        <div className="relative p-8 md:p-10 rounded-3xl overflow-hidden glass-panel border border-sky-500/40 bg-gradient-to-r from-slate-950 via-sky-950 to-slate-900 shadow-2xl">
-          <div className="relative z-10 max-w-xl flex flex-col gap-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/20 border border-red-400/40 text-red-300 text-xs font-extrabold w-max shadow-sm">
-              <Star className="w-4 h-4 fill-red-400 text-red-400" />
+        <div className="relative p-5 md:p-10 rounded-3xl overflow-hidden glass-panel border border-sky-500/40 bg-gradient-to-r from-slate-950 via-sky-950 to-slate-900 shadow-2xl">
+          <div className="relative z-10 max-w-xl flex flex-col gap-2 md:gap-3">
+            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-red-500/20 border border-red-400/40 text-red-300 text-[10px] md:text-xs font-extrabold w-max shadow-sm">
+              <Star className="w-3.5 h-3.5 fill-red-400 text-red-400" />
               <span>FEATURED TRACK — THE WEEKND</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight" style={{ fontFamily: 'Outfit' }}>
+            <h2 className="text-2xl md:text-5xl font-black text-white leading-tight" style={{ fontFamily: 'Outfit' }}>
               Starboy (Midnight R&B)
             </h2>
-            <p className="text-xs md:text-sm text-slate-300">
+            <p className="hidden md:block text-xs md:text-sm text-slate-300">
               Listen to Starboy by The Weeknd with 808 sub-bass drops, synced karaoke lyrics, live spectrum visualizer, and 3-band parametric equalizer.
             </p>
             <div className="flex items-center gap-4 mt-2">
@@ -397,7 +397,7 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
   );
 
   return (
-    <main className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-slate-900/80 via-slate-950 to-slate-950">
+    <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-gradient-to-b from-slate-900/80 via-slate-950 to-slate-950">
       {renderContent()}
     </main>
   );

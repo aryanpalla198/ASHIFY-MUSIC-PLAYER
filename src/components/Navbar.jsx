@@ -7,11 +7,11 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
   const { user, logout, setIsAuthModalOpen } = useAuth();
 
   return (
-    <header className="sticky top-0 z-10 flex flex-col gap-4 px-6 py-4 glass-panel border-b border-slate-800/80 bg-slate-950/80">
+    <header className="sticky top-0 z-10 flex flex-col gap-3 px-4 py-3 md:px-6 md:py-4 glass-panel border-b border-slate-800/80 bg-slate-950/80">
       <div className="flex items-center justify-between gap-4">
         {/* Navigation History & Search */}
-        <div className="flex items-center gap-4 flex-1">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 flex-1">
+          <div className="hidden md:flex items-center gap-2">
             <button 
               onClick={() => setActiveTab('home')}
               className="w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition-all"
