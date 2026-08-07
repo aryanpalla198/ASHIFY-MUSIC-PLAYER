@@ -8,9 +8,52 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
 
   return (
     <header className="sticky top-0 z-10 flex flex-col gap-3 px-4 py-3 md:px-6 md:py-4 glass-panel border-b border-slate-800/80 bg-slate-950/80">
-      <div className="flex items-center justify-between gap-4">
+      
+      {/* Mobile Top Row: Logo & Profile */}
+      <div className="flex md:hidden items-center justify-between w-full">
+        {/* ASHIFY Logo */}
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-400 to-blue-600 flex items-center justify-center font-black text-slate-950 text-base shadow-sm shadow-sky-500/10">
+            A
+          </div>
+          <span className="font-black text-lg tracking-wider text-white animate-pulse" style={{ fontFamily: 'Outfit' }}>
+            ASHIFY
+          </span>
+        </div>
+        {/* Profile wrapper on mobile */}
+        <div className="flex items-center gap-2">
+          {user ? (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-[10px] text-slate-200 font-medium"
+              >
+                <img src={user.avatar} alt={user.name} className="w-5 h-5 rounded-full object-cover" />
+                <span className="truncate max-w-[60px]">{user.name}</span>
+              </button>
+              <button
+                onClick={logout}
+                className="w-7 h-7 rounded-full bg-slate-800/80 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-slate-400"
+                title="Logout"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="btn-primary text-xs py-1 px-3"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Login</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-4 w-full">
         {/* Navigation History & Search */}
-        <div className="flex items-center gap-3 flex-1">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="hidden md:flex items-center gap-2">
             <button 
               onClick={() => setActiveTab('home')}
@@ -27,11 +70,11 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
           </div>
 
           {/* Search Box */}
-          <div className="relative flex-1 max-w-md">
+          <div className="relative flex-1 md:max-w-md w-full">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Search songs, artists, synthwave, lo-fi..."
+              placeholder="Search songs, artists, mixes..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -52,8 +95,8 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
           </div>
         </div>
 
-        {/* User Auth Action */}
-        <div className="flex items-center gap-3">
+        {/* User Auth Action (Desktop only) */}
+        <div className="hidden md:flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-3">
               <button
