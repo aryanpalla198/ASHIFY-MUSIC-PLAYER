@@ -131,7 +131,7 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
           </div>
 
           {filteredSongs.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="flex flex-col md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
               {filteredSongs.map(song => (
                 <SongCard key={song.id} song={song} />
               ))}
@@ -311,11 +311,21 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
   const SongCard = ({ song }) => (
     <div
       onClick={() => playSong(song)}
-      className="glass-card p-3 rounded-2xl border border-slate-800/80 hover:border-sky-500/40 cursor-pointer group flex flex-col gap-2"
+      className="glass-card p-2.5 md:p-3 rounded-2xl border border-slate-800/80 hover:border-sky-500/40 cursor-pointer group flex flex-row md:flex-col items-center md:items-start gap-4 md:gap-2 transition-all"
     >
-      <img src={song.coverUrl} alt={song.title} className="w-full aspect-square rounded-xl object-cover" />
-      <h4 className="font-bold text-sm text-white truncate group-hover:text-sky-300">{song.title}</h4>
-      <p className="text-xs text-slate-400 truncate">{song.artist}</p>
+      <img 
+        src={song.coverUrl} 
+        alt={song.title} 
+        className="w-12 h-12 md:w-full md:aspect-square rounded-xl object-cover shadow-md flex-shrink-0" 
+      />
+      <div className="flex-1 md:w-full min-w-0">
+        <h4 className="font-bold text-sm text-white truncate group-hover:text-sky-300">{song.title}</h4>
+        <p className="text-xs text-slate-400 truncate mt-0.5">{song.artist}</p>
+      </div>
+      {/* Right side play indicator icon on mobile */}
+      <div className="md:hidden w-8 h-8 rounded-full bg-sky-400/10 text-sky-400 flex items-center justify-center flex-shrink-0">
+        <Play className="w-4 h-4 fill-sky-400 ml-0.5" />
+      </div>
     </div>
   );
 

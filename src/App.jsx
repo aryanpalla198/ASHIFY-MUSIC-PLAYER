@@ -13,7 +13,7 @@ import { EqualizerModal } from './components/EqualizerModal';
 import { FullScreenPlayer } from './components/FullScreenPlayer';
 import { SettingsModal } from './components/SettingsModal';
 import { FriendActivityDrawer } from './components/FriendActivityDrawer';
-import { Home, Search, Library, Mic } from 'lucide-react';
+import { Home, Search, Library, Mic, Trophy, Users } from 'lucide-react';
 
 export function AppContent() {
   const [activeTab, setActiveTab] = useState('home');
@@ -52,16 +52,16 @@ export function AppContent() {
       {/* Persistent Player Controls Bar */}
       <PlayerBar />
 
-      {/* Mobile Bottom Navigation */}
-      <div className="botnav-container bg-slate-950/95 border-t border-slate-800/80 flex items-center justify-around px-6 z-30">
+      {/* Mobile Bottom Navigation (6 Side-by-Side Tabs) */}
+      <div className="botnav-container bg-slate-950/95 border-t border-slate-800/80 flex items-center justify-around px-2 z-30">
         <button
           onClick={() => setActiveTab('home')}
           className={`flex flex-col items-center justify-center gap-1 transition-all ${
             activeTab === 'home' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
-          <Home className="w-5 h-5" />
-          <span className="text-[10px] font-semibold">Home</span>
+          <Home className="w-4.5 h-4.5" />
+          <span className="text-[9px] font-semibold">Home</span>
         </button>
 
         <button
@@ -70,8 +70,8 @@ export function AppContent() {
             activeTab === 'search' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
-          <Search className="w-5 h-5" />
-          <span className="text-[10px] font-semibold">Search</span>
+          <Search className="w-4.5 h-4.5" />
+          <span className="text-[9px] font-semibold">Search</span>
         </button>
 
         <button
@@ -80,8 +80,8 @@ export function AppContent() {
             activeTab === 'library' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
-          <Library className="w-5 h-5" />
-          <span className="text-[10px] font-semibold">Library</span>
+          <Library className="w-4.5 h-4.5" />
+          <span className="text-[9px] font-semibold">Library</span>
         </button>
 
         <button
@@ -90,8 +90,28 @@ export function AppContent() {
             activeTab === 'podcasts' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
           }`}
         >
-          <Mic className="w-5 h-5" />
-          <span className="text-[10px] font-semibold">Podcasts</span>
+          <Mic className="w-4.5 h-4.5" />
+          <span className="text-[9px] font-semibold">Podcasts</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('charts')}
+          className={`flex flex-col items-center justify-center gap-1 transition-all ${
+            activeTab === 'charts' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Trophy className="w-4.5 h-4.5" />
+          <span className="text-[9px] font-semibold">Charts</span>
+        </button>
+
+        <button
+          onClick={() => setShowFriends(!showFriends)}
+          className={`flex flex-col items-center justify-center gap-1 transition-all ${
+            showFriends ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Users className="w-4.5 h-4.5" />
+          <span className="text-[9px] font-semibold">Friends</span>
         </button>
       </div>
 
