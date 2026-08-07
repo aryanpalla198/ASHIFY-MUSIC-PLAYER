@@ -243,13 +243,15 @@ input[type="range"]:hover::-webkit-slider-thumb {
 @media (max-width: 768px) {
   .app-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 72px;
+    grid-template-rows: 1fr;
     grid-template-areas:
-      "main"
-      "player";
+      "main";
   }
   .sidebar-container {
     display: none;
+  }
+  footer {
+    display: none !important;
   }
 }
 

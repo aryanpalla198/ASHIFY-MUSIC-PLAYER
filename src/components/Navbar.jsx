@@ -51,68 +51,7 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
         </div>
       </div>
 
-      {/* Mobile Navigation Tabs (visible only on mobile, placed below ASHIFY logo) */}
-      <div className="mobile-only-flex items-center justify-around py-2 border-t border-b border-slate-800/40 bg-slate-900/10 gap-1 overflow-x-auto no-scrollbar">
-        <button
-          onClick={() => setActiveTab('home')}
-          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${
-            activeTab === 'home' 
-              ? 'bg-sky-400 text-slate-950 shadow-md shadow-sky-400/20' 
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Home className="w-3.5 h-3.5" />
-          <span>Home</span>
-        </button>
 
-        <button
-          onClick={() => setActiveTab('search')}
-          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${
-            activeTab === 'search' 
-              ? 'bg-sky-400 text-slate-950 shadow-md shadow-sky-400/20' 
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Search className="w-3.5 h-3.5" />
-          <span>Search</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('library')}
-          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${
-            activeTab === 'library' 
-              ? 'bg-sky-400 text-slate-950 shadow-md shadow-sky-400/20' 
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Library className="w-3.5 h-3.5" />
-          <span>Library</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('podcasts')}
-          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${
-            activeTab === 'podcasts' 
-              ? 'bg-sky-400 text-slate-950 shadow-md shadow-sky-400/20' 
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Mic className="w-3.5 h-3.5" />
-          <span>Podcasts</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('charts')}
-          className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${
-            activeTab === 'charts' 
-              ? 'bg-sky-400 text-slate-950 shadow-md shadow-sky-400/20' 
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Trophy className="w-3.5 h-3.5" />
-          <span>Charts</span>
-        </button>
-      </div>
 
       <div className="flex items-center justify-between gap-4 w-full">
         {/* Navigation History & Search */}
