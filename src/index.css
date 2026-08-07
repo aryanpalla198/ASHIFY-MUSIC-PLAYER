@@ -252,3 +252,23 @@ input[type="range"]:hover::-webkit-slider-thumb {
     display: none;
   }
 }
+
+/* Custom responsive utility classes */
+.mobile-only-flex {
+  display: flex !important;
+}
+.desktop-only-flex {
+  display: flex !important;
+}
+
+@media (min-width: 769px) {
+  .mobile-only-flex {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-only-flex {
+    display: none !important;
+  }
+}

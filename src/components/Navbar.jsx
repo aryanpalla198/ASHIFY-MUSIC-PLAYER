@@ -10,7 +10,7 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
     <header className="sticky top-0 z-10 flex flex-col gap-3 px-4 py-3 md:px-6 md:py-4 glass-panel border-b border-slate-800/80 bg-slate-950/80">
       
       {/* Mobile Top Row: Logo & Profile */}
-      <div className="flex md:hidden items-center justify-between w-full">
+      <div className="mobile-only-flex items-center justify-between w-full">
         {/* ASHIFY Logo */}
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-400 to-blue-600 flex items-center justify-center font-black text-slate-950 text-base shadow-sm shadow-sky-500/10">
@@ -52,7 +52,7 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
       </div>
 
       {/* Mobile Navigation Tabs (visible only on mobile, placed below ASHIFY logo) */}
-      <div className="flex md:hidden items-center justify-around py-2 border-t border-b border-slate-800/40 bg-slate-900/10 gap-1 overflow-x-auto no-scrollbar">
+      <div className="mobile-only-flex items-center justify-around py-2 border-t border-b border-slate-800/40 bg-slate-900/10 gap-1 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveTab('home')}
           className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all ${
@@ -117,7 +117,7 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
       <div className="flex items-center justify-between gap-4 w-full">
         {/* Navigation History & Search */}
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="hidden md:flex items-center gap-2">
+          <div className="desktop-only-flex items-center gap-2">
             <button 
               onClick={() => setActiveTab('home')}
               className="w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition-all"
@@ -159,7 +159,7 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
         </div>
 
         {/* User Auth Action (Desktop only) */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="desktop-only-flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-3">
               <button
