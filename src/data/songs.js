@@ -1,4 +1,4 @@
-export const INITIAL_SONGS = [
+const RAW_INITIAL_SONGS = [
   {
     id: "starboy",
     title: "Starboy",
@@ -140,7 +140,7 @@ export const CATEGORIES = [
   { id: "Kollywood Rock", name: "🤘 Tamil Hit (Hukum)", color: "from-purple-600 to-navy-950" }
 ];
 
-export const FEATURED_PLAYLISTS = [
+const RAW_FEATURED_PLAYLISTS = [
   {
     id: "pl-ashify-hits",
     title: "ASHIFY Original Hits",
@@ -150,7 +150,7 @@ export const FEATURED_PLAYLISTS = [
   }
 ];
 
-export const MADE_FOR_YOU_MIXES = [
+const RAW_MADE_FOR_YOU_MIXES = [
   {
     id: "mix-1",
     title: "Your Daily Fusion Mix",
@@ -160,7 +160,7 @@ export const MADE_FOR_YOU_MIXES = [
   }
 ];
 
-export const PODCAST_EPISODES = [
+const RAW_PODCAST_EPISODES = [
   {
     id: "pod-1",
     title: "Ep 104: The Global Beats of ASHIFY",
@@ -183,3 +183,27 @@ export const FRIEND_ACTIVITY = [
     timeAgo: "1m ago"
   }
 ];
+
+const BASE = import.meta.env.BASE_URL || '/';
+
+export const INITIAL_SONGS = RAW_INITIAL_SONGS.map(song => ({
+  ...song,
+  coverUrl: song.coverUrl.startsWith('http') || song.coverUrl.startsWith('data:') ? song.coverUrl : `${BASE}${song.coverUrl}`,
+  audioUrl: song.audioUrl.startsWith('http') ? song.audioUrl : `${BASE}${song.audioUrl}`
+}));
+
+export const FEATURED_PLAYLISTS = RAW_FEATURED_PLAYLISTS.map(playlist => ({
+  ...playlist,
+  coverUrl: playlist.coverUrl.startsWith('http') ? playlist.coverUrl : `${BASE}${playlist.coverUrl}`
+}));
+
+export const MADE_FOR_YOU_MIXES = RAW_MADE_FOR_YOU_MIXES.map(mix => ({
+  ...mix,
+  coverUrl: mix.coverUrl.startsWith('http') ? mix.coverUrl : `${BASE}${mix.coverUrl}`
+}));
+
+export const PODCAST_EPISODES = RAW_PODCAST_EPISODES.map(episode => ({
+  ...episode,
+  coverUrl: episode.coverUrl.startsWith('http') ? episode.coverUrl : `${BASE}${episode.coverUrl}`,
+  audioUrl: episode.audioUrl.startsWith('http') ? episode.audioUrl : `${BASE}${episode.audioUrl}`
+}));
