@@ -51,59 +51,6 @@ export function AppContent() {
       {/* Persistent Player Controls Bar */}
       <PlayerBar />
 
-      {/* Mobile Bottom Navigation (6 Side-by-Side Tabs) */}
-      <div className="botnav-container bg-slate-950/95 border-t border-slate-800/80 flex items-center justify-around px-2 z-30">
-        <button
-          onClick={() => setActiveTab('home')}
-          className={`flex flex-col items-center justify-center gap-1 transition-all ${
-            activeTab === 'home' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Home className="w-4.5 h-4.5" />
-          <span className="text-[9px] font-semibold">Home</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('search')}
-          className={`flex flex-col items-center justify-center gap-1 transition-all ${
-            activeTab === 'search' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Search className="w-4.5 h-4.5" />
-          <span className="text-[9px] font-semibold">Search</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('library')}
-          className={`flex flex-col items-center justify-center gap-1 transition-all ${
-            activeTab === 'library' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Library className="w-4.5 h-4.5" />
-          <span className="text-[9px] font-semibold">Library</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('podcasts')}
-          className={`flex flex-col items-center justify-center gap-1 transition-all ${
-            activeTab === 'podcasts' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Mic className="w-4.5 h-4.5" />
-          <span className="text-[9px] font-semibold">Podcasts</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('charts')}
-          className={`flex flex-col items-center justify-center gap-1 transition-all ${
-            activeTab === 'charts' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Trophy className="w-4.5 h-4.5" />
-          <span className="text-[9px] font-semibold">Charts</span>
-        </button>
-      </div>
-
       {/* Overlays and Modals */}
       <AuthModal />
       <AudioVisualizer />

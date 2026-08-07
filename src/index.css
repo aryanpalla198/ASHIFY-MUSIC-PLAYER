@@ -239,25 +239,16 @@ input[type="range"]:hover::-webkit-slider-thumb {
   transform: scale(1.3);
 }
 
-.botnav-container {
-  grid-area: botnav;
-  display: none;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .app-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 72px 64px;
+    grid-template-rows: 1fr 72px;
     grid-template-areas:
       "main"
-      "player"
-      "botnav";
+      "player";
   }
   .sidebar-container {
     display: none;
-  }
-  .botnav-container {
-    display: flex !important;
   }
 }
