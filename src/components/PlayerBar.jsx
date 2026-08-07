@@ -48,40 +48,45 @@ export const PlayerBar = () => {
   const isLiked = likedSongIds.includes(currentSong.id);
 
   return (
-    <footer className="col-span-2 glass-panel z-30 flex items-center justify-between px-6 border-t border-slate-800 bg-slate-950/95" style={{ height: 'var(--player-height)' }}>
+    <footer className="col-span-2 glass-panel z-30 flex items-center justify-between px-4 md:px-6 border-t border-slate-800 bg-slate-950/95 relative" style={{ height: '100%', gridArea: 'player' }}>
       
+      {/* Mobile Top Progress Bar Line */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-slate-800/80 md:hidden">
+        <div 
+          className="h-full bg-sky-400 transition-all duration-100" 
+          style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
+        />
+      </div>
+
       {/* Left: Track Information */}
-      <div className="flex items-center gap-4 w-1/4 min-w-[200px]">
+      <div className="flex items-center gap-3 flex-1 md:flex-initial md:w-1/4 min-w-0">
         <div 
           onClick={() => setShowFullScreenPlayer(true)}
-          className="relative group cursor-pointer"
+          className="relative group cursor-pointer flex-shrink-0"
           title="Click for Spotify Fullscreen View"
         >
           <img
             src={currentSong.coverUrl}
             alt={currentSong.title}
-            className={`w-14 h-14 rounded-xl object-cover border border-slate-700/80 shadow-md transition-all group-hover:scale-105 ${isPlaying ? 'shadow-sky-500/20' : ''}`}
+            className={`w-12 h-12 md:w-14 md:h-14 rounded-xl object-cover border border-slate-700/80 shadow-md transition-all group-hover:scale-105 ${isPlaying ? 'shadow-sky-500/20' : ''}`}
           />
           <div className="absolute inset-0 bg-slate-950/40 rounded-xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-            <Maximize2 className="w-5 h-5 text-white" />
+            <Maximize2 className="w-4 h-4 text-white" />
           </div>
         </div>
 
-        <div className="flex flex-col truncate" onClick={() => setShowFullScreenPlayer(true)}>
+        <div className="flex flex-col truncate flex-1 min-w-0" onClick={() => setShowFullScreenPlayer(true)}>
           <h4 className="font-bold text-sm text-slate-100 truncate hover:text-sky-300 cursor-pointer" style={{ fontFamily: 'Outfit' }}>
             {currentSong.title}
           </h4>
           <span className="text-xs text-slate-400 truncate hover:text-slate-200 cursor-pointer">
             {currentSong.artist}
           </span>
-          {audioError && (
-            <span className="text-[10px] text-cyan-400 font-bold tracking-tight">Audio Synth Mode Active</span>
-          )}
         </div>
 
         <button
           onClick={() => toggleLikeSong(currentSong.id)}
-          className={`p-2 rounded-full transition-colors ${
+          className={`p-2 rounded-full transition-colors flex-shrink-0 ${
             isLiked ? 'text-sky-400 hover:text-sky-300' : 'text-slate-500 hover:text-slate-300'
           }`}
           title={isLiked ? "Unlike Song" : "Like Song"}
@@ -90,8 +95,8 @@ export const PlayerBar = () => {
         </button>
       </div>
 
-      {/* Center: Controls & Seek Bar */}
-      <div className="flex flex-col items-center gap-1.5 flex-1 max-w-xl px-4">
+      {/* Center: Controls & Seek Bar (Desktop only) */}
+      <div className="hidden md:flex flex-col items-center gap-1.5 flex-1 max-w-xl px-4">
         <div className="flex items-center gap-6">
           <button
             onClick={() => setIsShuffle(!isShuffle)}
@@ -162,8 +167,28 @@ export const PlayerBar = () => {
         </div>
       </div>
 
-      {/* Right: Extra Controls */}
-      <div className="flex items-center justify-end gap-2 w-1/4 min-w-[200px]">
+      {/* Mobile Play/Pause & Skip Controls */}
+      <div className="flex md:hidden items-center gap-3 flex-shrink-0">
+        <button
+          onClick={togglePlay}
+          className="w-10 h-10 rounded-full bg-sky-400 text-slate-950 flex items-center justify-center shadow-md active:scale-95 transition-transform"
+        >
+          {isPlaying ? (
+            <Pause className="w-5 h-5 fill-slate-950" />
+          ) : (
+            <Play className="w-5 h-5 fill-slate-950 ml-0.5" />
+          )}
+        </button>
+        <button
+          onClick={handleNextTrack}
+          className="text-slate-300 hover:text-sky-400 transition-colors p-1"
+        >
+          <SkipForward className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Right: Extra Controls (Desktop only) */}
+      <div className="hidden md:flex items-center justify-end gap-2 w-1/4 min-w-[200px]">
         <button
           onClick={() => setShowLyrics(!showLyrics)}
           className={`p-2 rounded-xl transition-all ${

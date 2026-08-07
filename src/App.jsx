@@ -13,6 +13,7 @@ import { EqualizerModal } from './components/EqualizerModal';
 import { FullScreenPlayer } from './components/FullScreenPlayer';
 import { SettingsModal } from './components/SettingsModal';
 import { FriendActivityDrawer } from './components/FriendActivityDrawer';
+import { Home, Search, Library, Mic } from 'lucide-react';
 
 export function AppContent() {
   const [activeTab, setActiveTab] = useState('home');
@@ -50,6 +51,49 @@ export function AppContent() {
 
       {/* Persistent Player Controls Bar */}
       <PlayerBar />
+
+      {/* Mobile Bottom Navigation */}
+      <div className="botnav-container bg-slate-950/95 border-t border-slate-800/80 flex items-center justify-around px-6 z-30">
+        <button
+          onClick={() => setActiveTab('home')}
+          className={`flex flex-col items-center justify-center gap-1 transition-all ${
+            activeTab === 'home' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Home className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Home</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('search')}
+          className={`flex flex-col items-center justify-center gap-1 transition-all ${
+            activeTab === 'search' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Search className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Search</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('library')}
+          className={`flex flex-col items-center justify-center gap-1 transition-all ${
+            activeTab === 'library' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Library className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Library</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('podcasts')}
+          className={`flex flex-col items-center justify-center gap-1 transition-all ${
+            activeTab === 'podcasts' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Mic className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Podcasts</span>
+        </button>
+      </div>
 
       {/* Overlays and Modals */}
       <AuthModal />
