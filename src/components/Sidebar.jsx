@@ -110,13 +110,6 @@ export const Sidebar = ({ activeTab, setActiveTab, toggleFriends }) => {
             <span>Top 50 Global</span>
           </button>
 
-          <button
-            onClick={toggleFriends}
-            className="flex items-center gap-4 px-4 py-2.5 rounded-xl font-medium text-sm transition-all text-slate-400 hover:text-sky-300 hover:bg-slate-800/40"
-          >
-            <Users className="w-5 h-5" />
-            <span>Friend Activity</span>
-          </button>
         </nav>
 
         {/* Library Shortcuts */}

@@ -12,8 +12,7 @@ import { QueueDrawer } from './components/QueueDrawer';
 import { EqualizerModal } from './components/EqualizerModal';
 import { FullScreenPlayer } from './components/FullScreenPlayer';
 import { SettingsModal } from './components/SettingsModal';
-import { FriendActivityDrawer } from './components/FriendActivityDrawer';
-import { Home, Search, Library, Mic, Trophy, Users } from 'lucide-react';
+import { Home, Search, Library, Mic, Trophy } from 'lucide-react';
 
 export function AppContent() {
   const [activeTab, setActiveTab] = useState('home');
@@ -103,16 +102,6 @@ export function AppContent() {
           <Trophy className="w-4.5 h-4.5" />
           <span className="text-[9px] font-semibold">Charts</span>
         </button>
-
-        <button
-          onClick={() => setShowFriends(!showFriends)}
-          className={`flex flex-col items-center justify-center gap-1 transition-all ${
-            showFriends ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <Users className="w-4.5 h-4.5" />
-          <span className="text-[9px] font-semibold">Friends</span>
-        </button>
       </div>
 
       {/* Overlays and Modals */}
@@ -123,7 +112,6 @@ export function AppContent() {
       <EqualizerModal />
       <FullScreenPlayer />
       <SettingsModal />
-      <FriendActivityDrawer isOpen={showFriends} setIsOpen={setShowFriends} />
     </div>
   );
 }
