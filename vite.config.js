@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/ashify-music-player/',
+  base: '/ASHIFY-MUSIC-PLAYER/',
   server: {
     port: 3000,
     host: true

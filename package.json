@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://aryanpalla198.github.io/ashify-music-player/",
+  "homepage": "https://aryanpalla198.github.io/ASHIFY-MUSIC-PLAYER/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
