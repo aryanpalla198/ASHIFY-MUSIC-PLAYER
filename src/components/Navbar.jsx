@@ -72,7 +72,7 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
           </div>
 
           {/* Search Box */}
-          <div className={`relative flex-1 md:max-w-md w-full ${activeTab === 'search' ? 'block' : 'hidden md:block'}`}>
+          <div className={`relative flex-1 lg:max-w-md w-full ${activeTab === 'search' ? 'block' : 'hidden lg:block'}`}>
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"

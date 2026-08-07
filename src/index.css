@@ -240,7 +240,7 @@ input[type="range"]:hover::-webkit-slider-thumb {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .app-container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -263,13 +263,13 @@ input[type="range"]:hover::-webkit-slider-thumb {
   display: flex !important;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .mobile-only-flex {
     display: none !important;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .desktop-only-flex {
     display: none !important;
   }
