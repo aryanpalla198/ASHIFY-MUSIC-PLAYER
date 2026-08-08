@@ -58,6 +58,42 @@ export function AppContent() {
       {/* Persistent Player Controls Bar */}
       <PlayerBar />
 
+      {/* Mobile Bottom Navigation Bar */}
+      <div 
+        className="flex lg:hidden items-center justify-around bg-slate-950/95 border-t border-slate-900/50 py-2 z-30" 
+        style={{ gridArea: 'mobile-nav' }}
+      >
+        <button
+          onClick={() => setActiveTab('home')}
+          className={`flex flex-col items-center gap-1 transition-all ${
+            activeTab === 'home' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Home className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Home</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('search')}
+          className={`flex flex-col items-center gap-1 transition-all ${
+            activeTab === 'search' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Search className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Search</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('library')}
+          className={`flex flex-col items-center gap-1 transition-all ${
+            activeTab === 'library' ? 'text-sky-400 font-bold scale-105' : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Library className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Your Library</span>
+        </button>
+      </div>
+
       {/* Overlays and Modals */}
       <AuthModal />
       <AudioVisualizer />
