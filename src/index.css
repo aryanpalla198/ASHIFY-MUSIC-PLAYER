@@ -247,15 +247,13 @@ input[type="range"]:hover::-webkit-slider-thumb {
 @media (max-width: 1024px) {
   .app-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr var(--player-height);
     grid-template-areas:
-      "main";
+      "main"
+      "player";
   }
   .sidebar-container {
     display: none;
-  }
-  footer {
-    display: none !important;
   }
 }
 

@@ -201,6 +201,78 @@ const RAW_INITIAL_SONGS = [
       { time: 15, text: "Dil ka jo haal hai, kahoon ya na kahoon..." },
       { time: 30, text: "Hai kaisa ye nasha..." }
     ]
+  },
+  {
+    id: "love_me_again",
+    title: "Love Me Again",
+    artist: "Nannaku Prematho",
+    album: "Nannaku Prematho OST",
+    genre: "Tollywood Pop",
+    duration: 254,
+    coverUrl: "covers/love_me_again.jpg",
+    audioUrl: "audio/love_me_again.m4a",
+    plays: "18,290,400",
+    liked: true,
+    rank: 12,
+    lyrics: [
+      { time: 0, text: "♪ (Upbeat Telugu energy intro) ♪" },
+      { time: 10, text: "Love me again... Love me again..." },
+      { time: 20, text: "Naa manasupadi nee venake thirigane..." }
+    ]
+  },
+  {
+    id: "emitemitemo",
+    title: "Emitemitemo",
+    artist: "Alphonse",
+    album: "Emitemitemo (Single)",
+    genre: "Malayalam Independent R&B",
+    duration: 212,
+    coverUrl: "covers/emitemitemo.jpg",
+    audioUrl: "audio/emitemitemo.m4a",
+    plays: "3,190,200",
+    liked: false,
+    rank: 13,
+    lyrics: [
+      { time: 0, text: "♪ (Smooth acoustic chill guitar) ♪" },
+      { time: 12, text: "Emitemitemo kandoo njan..." },
+      { time: 24, text: "Melle melle ninte chiri kandu..." }
+    ]
+  },
+  {
+    id: "baby_doll",
+    title: "Baby Doll",
+    artist: "Khushboo",
+    album: "Baby Doll (Single)",
+    genre: "Bollywood Pop",
+    duration: 236,
+    coverUrl: "covers/baby_doll.jpg",
+    audioUrl: "audio/baby_doll.m4a",
+    plays: "4,890,400",
+    liked: true,
+    rank: 14,
+    lyrics: [
+      { time: 0, text: "♪ (Fast Punjabi dance synth intro) ♪" },
+      { time: 10, text: "Yeh duniya pitta di... baby doll main sone di..." },
+      { time: 20, text: "Baby doll main sone di..." }
+    ]
+  },
+  {
+    id: "sheila_ki_jawani",
+    title: "Sheila Ki Jawani",
+    artist: "Vishal-Shekhar",
+    album: "Tees Maar Khan OST",
+    genre: "Bollywood Pop",
+    duration: 283,
+    coverUrl: "covers/sheila_ki_jawani.jpg",
+    audioUrl: "audio/sheila_ki_jawani.m4a",
+    plays: "75,102,900",
+    liked: true,
+    rank: 15,
+    lyrics: [
+      { time: 0, text: "♪ (Heavy dholak and brass intro) ♪" },
+      { time: 12, text: "I know you want it... but you never gonna get it..." },
+      { time: 24, text: "My name is Sheila... Sheila ki jawani..." }
+    ]
   }
 ];
 

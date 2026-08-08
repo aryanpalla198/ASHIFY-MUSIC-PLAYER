@@ -247,7 +247,7 @@ export const MainView = ({ activeTab, searchQuery, selectedCategory, setActiveTa
             Quick Play
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {songs.map(song => (
+            {songs.slice(0, 6).map(song => (
               <div
                 key={song.id}
                 onClick={() => {
