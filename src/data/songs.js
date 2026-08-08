@@ -318,7 +318,7 @@ const RAW_INITIAL_SONGS = [
     genre: "Bollywood Pop",
     duration: 228,
     coverUrl: "covers/teri_baaton_mein.jpg",
-    audioUrl: "audio/teri_baaton_mein.m4a",
+    audioUrl: "audio/teri_baaton_mein.m4a?v=2",
     plays: "65,302,900",
     liked: true,
     rank: 18,
