@@ -20,38 +20,17 @@ const DEFAULT_USER = {
 };
 
 export const AuthProvider = ({ children }) => {
-  // Load registered users list from localStorage
-  const [registeredUsers, setRegisteredUsers] = useState(() => {
-    const saved = localStorage.getItem('ash_registered_users');
-    if (saved) {
-      return JSON.parse(saved);
-    }
-    // Pre-populate with default approved user
-    const initial = [
-      {
-        id: "user-ash-vip",
-        name: "Ash Premium Member",
-        email: "ash.vip@spotifyclone.app",
-        avatar: ASH_AVATARS[0],
-        plan: "ASH VIP Navy",
-        joined: "2026",
-        status: "approved"
-      }
-    ];
-    localStorage.setItem('ash_registered_users', JSON.stringify(initial));
-    return initial;
-  });
-
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('ash_user_session');
     if (saved) {
       const parsed = JSON.parse(saved);
+      // Replace any legacy unsplash lady avatars
       if (!parsed.avatar || parsed.avatar.includes('unsplash')) {
         parsed.avatar = ASH_AVATARS[0];
       }
       return parsed;
     }
-    return null; // Guest/logged out by default
+    return DEFAULT_USER;
   });
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -65,45 +44,15 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
 
   const login = (email, name = "Ash Member") => {
-    const formattedEmail = email.trim().toLowerCase();
-    
-    // Check if Admin
-    if (formattedEmail === 'admin@ashify.com') {
-      const adminUser = {
-        id: "admin-id",
-        name: "System Admin",
-        email: "admin@ashify.com",
-        avatar: ASH_AVATARS[0],
-        plan: "Administrator",
-        joined: "2026",
-        isAdmin: true,
-        status: "approved"
-      };
-      setUser(adminUser);
-      setIsAuthModalOpen(false);
-      return;
-    }
-
-    // Check if normal user exists in registered list
-    const existingUser = registeredUsers.find(u => u.email.toLowerCase() === formattedEmail);
-    if (existingUser) {
-      setUser(existingUser);
-    } else {
-      // Create new pending user request
-      const newUser = {
-        id: "user-" + Date.now(),
-        name: name || email.split('@')[0],
-        email: email,
-        avatar: ASH_AVATARS[Math.floor(Math.random() * ASH_AVATARS.length)],
-        plan: "ASH VIP Navy",
-        joined: new Date().getFullYear().toString(),
-        status: "pending"
-      };
-      const updatedUsers = [...registeredUsers, newUser];
-      setRegisteredUsers(updatedUsers);
-      localStorage.setItem('ash_registered_users', JSON.stringify(updatedUsers));
-      setUser(newUser);
-    }
+    const newUser = {
+      id: "user-" + Date.now(),
+      name: name || email.split('@')[0],
+      email: email,
+      avatar: ASH_AVATARS[Math.floor(Math.random() * ASH_AVATARS.length)],
+      plan: "ASH VIP Navy",
+      joined: new Date().getFullYear().toString()
+    };
+    setUser(newUser);
     setIsAuthModalOpen(false);
   };
 
@@ -111,35 +60,9 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const approveUser = (userId) => {
-    const updatedUsers = registeredUsers.map(u => {
-      if (u.id === userId) {
-        return { ...u, status: 'approved' };
-      }
-      return u;
-    });
-    setRegisteredUsers(updatedUsers);
-    localStorage.setItem('ash_registered_users', JSON.stringify(updatedUsers));
-
-    // If the approved user is current session user, update active session in real-time
-    if (user && user.id === userId) {
-      setUser({ ...user, status: 'approved' });
-    }
-  };
-
   const updateAvatar = (avatarUrl) => {
     if (user) {
-      const updatedUser = { ...user, avatar: avatarUrl };
-      setUser(updatedUser);
-      // Also update in registeredUsers if it exists
-      const updatedUsers = registeredUsers.map(u => {
-        if (u.id === user.id) {
-          return { ...u, avatar: avatarUrl };
-        }
-        return u;
-      });
-      setRegisteredUsers(updatedUsers);
-      localStorage.setItem('ash_registered_users', JSON.stringify(updatedUsers));
+      setUser({ ...user, avatar: avatarUrl });
     }
   };
 
@@ -150,9 +73,7 @@ export const AuthProvider = ({ children }) => {
       logout,
       updateAvatar,
       isAuthModalOpen,
-      setIsAuthModalOpen,
-      registeredUsers,
-      approveUser
+      setIsAuthModalOpen
     }}>
       {children}
     </AuthContext.Provider>

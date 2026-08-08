@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, Mail, Lock, Sparkles, Check, Disc3, ShieldAlert } from 'lucide-react';
+import { X, User, Mail, Lock, Sparkles, Check, Disc3 } from 'lucide-react';
 import { useAuth, ASH_AVATARS } from '../context/AuthContext';
 
 export const AuthModal = () => {
@@ -9,9 +9,7 @@ export const AuthModal = () => {
     user, 
     login, 
     logout, 
-    updateAvatar,
-    registeredUsers,
-    approveUser
+    updateAvatar
   } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
@@ -62,21 +60,9 @@ export const AuthModal = () => {
               <div>
                 <h3 className="font-bold text-lg text-white">{user.name}</h3>
                 <p className="text-xs text-slate-400">{user.email}</p>
-                <div className="mt-1">
-                  {user.isAdmin ? (
-                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-400 border border-purple-400/30">
-                      Administrator
-                    </span>
-                  ) : user.status === 'approved' ? (
-                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">
-                      Approved VIP Member
-                    </span>
-                  ) : (
-                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-400/30 animate-pulse">
-                      Pending Admin Approval
-                    </span>
-                  )}
-                </div>
+                <span className="inline-block px-2.5 py-0.5 mt-1 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-400 border border-sky-400/30">
+                  {user.plan || "ASH VIP Navy"} Active
+                </span>
               </div>
             </div>
 
@@ -103,48 +89,6 @@ export const AuthModal = () => {
                 ))}
               </div>
             </div>
-
-            {/* Admin Control Panel */}
-            {user.isAdmin && (
-              <div className="border-t border-slate-800 pt-4 mt-1">
-                <h4 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                  <ShieldAlert className="w-3.5 h-3.5" />
-                  <span>Admin Control Panel</span>
-                </h4>
-                <div className="flex flex-col gap-2 max-h-40 overflow-y-auto no-scrollbar">
-                  {registeredUsers.filter(u => u.id !== 'admin-id').length === 0 ? (
-                    <p className="text-xs text-slate-500 italic py-2 text-center">No other registered users found.</p>
-                  ) : (
-                    registeredUsers.filter(u => u.id !== 'admin-id').map(u => (
-                      <div key={u.id} className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-xs">
-                        <div className="flex items-center gap-2 truncate">
-                          <img src={u.avatar} alt="" className="w-7 h-7 rounded-full bg-slate-900 object-cover border border-slate-700" />
-                          <div className="truncate">
-                            <p className="font-bold text-slate-200 truncate">{u.name}</p>
-                            <p className="text-[10px] text-slate-400 truncate">{u.email}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
-                          {u.status === 'pending' ? (
-                            <button
-                              type="button"
-                              onClick={() => approveUser(u.id)}
-                              className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all font-bold text-[10px]"
-                            >
-                              Approve
-                            </button>
-                          ) : (
-                            <span className="px-2 py-0.5 rounded bg-slate-800/80 text-slate-400 font-semibold text-[9px] uppercase border border-slate-700/60">
-                              Approved
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            )}
 
             <div className="flex gap-3 pt-2">
               <button
