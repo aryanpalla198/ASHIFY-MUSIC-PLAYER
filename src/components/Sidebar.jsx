@@ -7,8 +7,9 @@ import { usePlayer } from '../context/PlayerContext';
 import { useAuth } from '../context/AuthContext';
 
 export const Sidebar = ({ activeTab, setActiveTab, toggleFriends }) => {
-  const { playlists, likedSongIds, createPlaylist } = usePlayer();
+  const { playlists, likedSongIds, createPlaylist, sidebarState, setSidebarState } = usePlayer();
   const { user, setIsAuthModalOpen } = useAuth();
+  const isMinimized = sidebarState === 'minimized';
 
   const handleCreatePlaylist = () => {
     const title = prompt("Enter new playlist name:", "ASH Night Mix #" + (playlists.length + 1));
@@ -18,11 +19,20 @@ export const Sidebar = ({ activeTab, setActiveTab, toggleFriends }) => {
   };
 
   return (
-    <aside className="sidebar-container glass-panel flex flex-col justify-between p-4 z-20 border-r border-slate-800" style={{ background: '#0a0f1d' }}>
+    <aside 
+      className={`sidebar-container glass-panel flex-col justify-between p-4 z-20 border-r border-slate-800 ${
+        sidebarState === 'closed'
+          ? 'hidden'
+          : isMinimized
+            ? 'w-20 hidden lg:flex'
+            : 'w-[250px] hidden lg:flex'
+      }`} 
+      style={{ background: '#0a0f1d' }}
+    >
       <div className="flex flex-col gap-5">
         
         {/* ASH Brand Logo Emblem & Window Controls */}
-        <div className="flex items-center justify-between px-2">
+        <div className={`flex ${isMinimized ? 'flex-col items-center' : 'items-center justify-between'} px-2 gap-4`}>
           <div 
             className="flex items-center gap-3 cursor-pointer group"
             onClick={() => setActiveTab('home')}
@@ -30,21 +40,51 @@ export const Sidebar = ({ activeTab, setActiveTab, toggleFriends }) => {
             <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-400 via-cyan-300 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:scale-105 transition-transform border border-sky-300/40">
               <span className="text-slate-950 font-black text-2xl tracking-tighter" style={{ fontFamily: 'Outfit' }}>A</span>
             </div>
-            <div>
-              <h1 className="text-2xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400" style={{ fontFamily: 'Outfit' }}>
-                ASHIFY
-              </h1>
-              <span className="text-[10px] tracking-widest uppercase text-slate-400 font-bold block -mt-1">
-                ARYAN
-              </span>
-            </div>
+            {!isMinimized && (
+              <div>
+                <h1 className="text-2xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400" style={{ fontFamily: 'Outfit' }}>
+                  ASHIFY
+                </h1>
+                <span className="text-[10px] tracking-widest uppercase text-slate-400 font-bold block -mt-1">
+                  ARYAN
+                </span>
+              </div>
+            )}
           </div>
           
-          {/* Mock Windows Controls */}
-          <div className="flex items-center gap-1">
-            <button className="w-6 h-6 rounded border border-slate-700 hover:border-sky-400 bg-slate-950 flex items-center justify-center text-slate-400 hover:text-sky-400 text-xs font-bold transition-colors" title="Minimize">-</button>
-            <button className="w-6 h-6 rounded border border-slate-700 hover:border-sky-400 bg-slate-950 flex items-center justify-center text-slate-400 hover:text-sky-400 text-[10px] font-bold transition-colors" title="Maximize">▢</button>
-            <button className="w-6 h-6 rounded border border-slate-700 hover:border-red-500 hover:bg-red-500/20 bg-slate-950 flex items-center justify-center text-slate-400 hover:text-red-400 text-xs font-bold transition-colors" title="Close">✕</button>
+          {/* Windows Controls */}
+          <div className={`flex ${isMinimized ? 'flex-col' : 'items-center'} gap-1`}>
+            <button 
+              onClick={() => setSidebarState('minimized')}
+              className="w-6 h-6 rounded border border-slate-700 hover:border-sky-400 bg-slate-950 flex items-center justify-center text-slate-400 hover:text-sky-400 text-xs font-bold transition-colors" 
+              title="Minimize"
+            >
+              -
+            </button>
+            <button 
+              onClick={() => {
+                if (sidebarState !== 'normal') {
+                  setSidebarState('normal');
+                } else {
+                  if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => console.warn(err));
+                  } else {
+                    document.exitFullscreen();
+                  }
+                }
+              }}
+              className="w-6 h-6 rounded border border-slate-700 hover:border-sky-400 bg-slate-950 flex items-center justify-center text-slate-400 hover:text-sky-400 text-[10px] font-bold transition-colors" 
+              title="Maximize"
+            >
+              ▢
+            </button>
+            <button 
+              onClick={() => setSidebarState('closed')}
+              className="w-6 h-6 rounded border border-slate-700 hover:border-red-500 hover:bg-red-500/20 bg-slate-950 flex items-center justify-center text-slate-400 hover:text-red-400 text-xs font-bold transition-colors" 
+              title="Close"
+            >
+              ✕
+            </button>
           </div>
         </div>
 
@@ -52,70 +92,74 @@ export const Sidebar = ({ activeTab, setActiveTab, toggleFriends }) => {
         <nav className="flex flex-col gap-1">
           <button
             onClick={() => setActiveTab('home')}
-            className={`flex items-center gap-4 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
+            className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-4 px-4'} py-2.5 rounded-xl font-medium text-sm transition-all ${
               activeTab === 'home'
                 ? 'bg-slate-800/90 text-sky-400 border-l-4 border-sky-400 shadow-md shadow-sky-950'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
+            title="Home"
           >
-            <Home className="w-5 h-5" />
-            <span>Home</span>
+            <Home className="w-5 h-5 flex-shrink-0" />
+            {!isMinimized && <span>Home</span>}
           </button>
 
           <button
             onClick={() => setActiveTab('search')}
-            className={`flex items-center gap-4 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
+            className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-4 px-4'} py-2.5 rounded-xl font-medium text-sm transition-all ${
               activeTab === 'search'
                 ? 'bg-slate-800/90 text-sky-400 border-l-4 border-sky-400 shadow-md shadow-sky-950'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
+            title="Search"
           >
-            <Search className="w-5 h-5" />
-            <span>Search</span>
+            <Search className="w-5 h-5 flex-shrink-0" />
+            {!isMinimized && <span>Search</span>}
           </button>
 
           <button
             onClick={() => setActiveTab('library')}
-            className={`flex items-center gap-4 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
+            className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-4 px-4'} py-2.5 rounded-xl font-medium text-sm transition-all ${
               activeTab === 'library'
                 ? 'bg-slate-800/90 text-sky-400 border-l-4 border-sky-400 shadow-md shadow-sky-950'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
+            title="Your Library"
           >
-            <Library className="w-5 h-5" />
-            <span>Your Library</span>
+            <Library className="w-5 h-5 flex-shrink-0" />
+            {!isMinimized && <span>Your Library</span>}
           </button>
 
           <button
             onClick={() => setActiveTab('podcasts')}
-            className={`flex items-center gap-4 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
+            className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-4 px-4'} py-2.5 rounded-xl font-medium text-sm transition-all ${
               activeTab === 'podcasts'
                 ? 'bg-slate-800/90 text-sky-400 border-l-4 border-sky-400 shadow-md shadow-sky-950'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
+            title="Podcasts & Shows"
           >
-            <Mic className="w-5 h-5" />
-            <span>Podcasts & Shows</span>
+            <Mic className="w-5 h-5 flex-shrink-0" />
+            {!isMinimized && <span>Podcasts & Shows</span>}
           </button>
 
           <button
             onClick={() => setActiveTab('charts')}
-            className={`flex items-center gap-4 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
+            className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-4 px-4'} py-2.5 rounded-xl font-medium text-sm transition-all ${
               activeTab === 'charts'
                 ? 'bg-slate-800/90 text-sky-400 border-l-4 border-sky-400 shadow-md shadow-sky-950'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
+            title="Top 50 Global"
           >
-            <Trophy className="w-5 h-5" />
-            <span>Top 50 Global</span>
+            <Trophy className="w-5 h-5 flex-shrink-0" />
+            {!isMinimized && <span>Top 50 Global</span>}
           </button>
-
         </nav>
 
         {/* Library Shortcuts */}
         <div className="pt-3 border-t border-slate-800/80">
-          <div className="px-4 pb-2 flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">PLAYLISTS</span>
+          <div className={`px-4 pb-2 flex ${isMinimized ? 'justify-center' : 'items-center justify-between'}`}>
+            {!isMinimized && <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">PLAYLISTS</span>}
             <button 
               onClick={handleCreatePlaylist}
               className="text-slate-400 hover:text-sky-400 transition-colors"
@@ -125,59 +169,65 @@ export const Sidebar = ({ activeTab, setActiveTab, toggleFriends }) => {
             </button>
           </div>
 
-          <div className="flex flex-col gap-1 max-h-40 overflow-y-auto">
+          <div className="flex flex-col gap-1 max-h-40 overflow-y-auto no-scrollbar">
             <button
               onClick={() => setActiveTab('liked')}
-              className={`flex items-center gap-3 px-4 py-2 rounded-lg text-xs transition-all ${
+              className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-3 px-4'} py-2 rounded-lg text-xs transition-all ${
                 activeTab === 'liked'
                   ? 'bg-sky-500/10 text-sky-400 font-bold'
                   : 'text-slate-300 hover:bg-slate-800/30'
               }`}
+              title={`Liked Songs (${likedSongIds.length})`}
             >
-              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-500 to-blue-700 flex items-center justify-center shadow-sm">
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-cyan-500 to-blue-700 flex items-center justify-center shadow-sm flex-shrink-0">
                 <Heart className="w-3 h-3 text-white fill-white" />
               </div>
-              <span className="truncate">Liked Songs ({likedSongIds.length})</span>
+              {!isMinimized && <span className="truncate">Liked Songs ({likedSongIds.length})</span>}
             </button>
 
             {playlists.map(pl => (
               <button
                 key={pl.id}
                 onClick={() => setActiveTab(`playlist-${pl.id}`)}
-                className={`flex items-center gap-3 px-4 py-2 text-xs transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/30 rounded-lg`}
+                className={`flex items-center ${isMinimized ? 'justify-center' : 'gap-3 px-4'} py-2 text-xs transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/30 rounded-lg`}
+                title={pl.title}
               >
-                <Music2 className="w-3.5 h-3.5 text-slate-500" />
-                <span className="truncate">{pl.title}</span>
+                <Music2 className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
+                {!isMinimized && <span className="truncate">{pl.title}</span>}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* User Auth Section (No lady avatar photo) */}
+      {/* User Auth Section */}
       <div className="pt-3 border-t border-slate-800/80">
         {user ? (
           <div 
             onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-3 p-2 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-sky-500/40 cursor-pointer transition-all"
+            className={`flex items-center ${isMinimized ? 'justify-center p-1' : 'gap-3 p-2'} rounded-xl bg-slate-900/60 border border-slate-800 hover:border-sky-500/40 cursor-pointer transition-all`}
+            title={`${user.name} (${user.plan})`}
           >
             <img 
               src={user.avatar} 
               alt={user.name} 
-              className="w-8 h-8 rounded-full object-cover border border-sky-400/50 shadow-sm" 
+              className="w-8 h-8 rounded-full object-cover border border-sky-400/50 shadow-sm flex-shrink-0" 
             />
-            <div className="flex flex-col truncate">
-              <span className="text-xs font-bold text-slate-200 truncate">{user.name}</span>
-              <span className="text-[10px] text-sky-400 font-semibold">{user.plan}</span>
-            </div>
+            {!isMinimized && (
+              <div className="flex flex-col truncate">
+                <span className="text-xs font-bold text-slate-200 truncate">{user.name}</span>
+                <span className="text-[10px] text-sky-400 font-semibold">{user.plan}</span>
+              </div>
+            )}
           </div>
         ) : (
           <button
             onClick={() => setIsAuthModalOpen(true)}
-            className="w-full btn-primary justify-center text-xs py-2.5"
+            className={`w-full btn-primary justify-center text-xs ${isMinimized ? 'py-2.5 px-0' : 'py-2.5'}`}
+            title="Login to ASH"
           >
-            <User className="w-4 h-4" />
-            <span>Login to ASH</span>
+            <User className="w-4 h-4 flex-shrink-0" />
+            {!isMinimized && <span>Login to ASH</span>}
           </button>
         )}
       </div>

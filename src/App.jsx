@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AuthProvider } from './context/AuthContext';
-import { PlayerProvider } from './context/PlayerContext';
+import { PlayerProvider, usePlayer } from './context/PlayerContext';
 import { Sidebar } from './components/Sidebar';
 import { Navbar } from './components/Navbar';
 import { MainView } from './components/MainView';
@@ -15,13 +15,20 @@ import { SettingsModal } from './components/SettingsModal';
 import { Home, Search, Library, Mic, Trophy } from 'lucide-react';
 
 export function AppContent() {
+  const { sidebarState } = usePlayer();
   const [activeTab, setActiveTab] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showFriends, setShowFriends] = useState(false);
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${
+      sidebarState === 'closed'
+        ? 'no-sidebar'
+        : sidebarState === 'minimized'
+          ? 'sidebar-minimized'
+          : ''
+    }`}>
       {/* Navigation Sidebar */}
       <Sidebar 
         activeTab={activeTab} 

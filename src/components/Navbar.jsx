@@ -1,10 +1,12 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Search, User, LogOut, Disc, Home, Library, Mic, Trophy } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, User, LogOut, Disc, Home, Library, Mic, Trophy, Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { usePlayer } from '../context/PlayerContext';
 import { CATEGORIES } from '../data/songs';
 
 export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelectedCategory, activeTab, setActiveTab }) => {
   const { user, logout, setIsAuthModalOpen } = useAuth();
+  const { sidebarState, setSidebarState } = usePlayer();
 
   return (
     <header className="sticky top-0 z-10 flex flex-col gap-3 px-4 py-3 md:px-6 md:py-4 glass-panel border-b border-slate-800/80 bg-slate-950/80">
@@ -57,6 +59,13 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
         {/* Navigation History & Search */}
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="desktop-only-flex items-center gap-2">
+            <button 
+              onClick={() => setSidebarState(sidebarState === 'closed' ? 'normal' : 'closed')}
+              className={`w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition-all mr-1 ${sidebarState !== 'closed' ? 'text-sky-400' : ''}`}
+              title={sidebarState === 'closed' ? "Show Sidebar" : "Hide Sidebar"}
+            >
+              <Menu className="w-5 h-5" />
+            </button>
             <button 
               onClick={() => setActiveTab('home')}
               className="w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition-all"

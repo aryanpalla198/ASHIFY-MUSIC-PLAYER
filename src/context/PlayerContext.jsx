@@ -30,6 +30,17 @@ export const PlayerProvider = ({ children }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [audioError, setAudioError] = useState(null);
 
+  // Sidebar State ('normal' | 'minimized' | 'closed')
+  const [sidebarState, setSidebarState] = useState(() => {
+    const saved = localStorage.getItem('ash_sidebar_state');
+    return saved ? saved : 'normal';
+  });
+
+  const updateSidebarState = (state) => {
+    setSidebarState(state);
+    localStorage.setItem('ash_sidebar_state', state);
+  };
+
   // User Playlists & Likes
   const [likedSongIds, setLikedSongIds] = useState(() => {
     const saved = localStorage.getItem('ash_liked_songs');
@@ -299,6 +310,8 @@ export const PlayerProvider = ({ children }) => {
       crossfade,
       eqPreset,
       eqGains,
+      sidebarState,
+      setSidebarState: updateSidebarState,
       showLyrics,
       showVisualizer,
       showQueue,

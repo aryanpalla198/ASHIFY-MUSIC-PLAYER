@@ -90,6 +90,10 @@ body {
     "player";
 }
 
+.app-container.sidebar-minimized {
+  grid-template-columns: 80px 1fr;
+}
+
 /* Glassmorphism Classes */
 .glass-panel {
   background: var(--bg-glass);
