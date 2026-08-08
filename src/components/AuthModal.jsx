@@ -202,8 +202,7 @@ export const AuthModal = () => {
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="password"
-                  required
-                  placeholder="••••••••"
+                  placeholder="•••••••• (Optional for Demo)"
                   className="w-full bg-slate-950/80 text-sm text-slate-100 pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 focus:border-sky-400 focus:outline-none"
                 />
               </div>
