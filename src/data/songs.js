@@ -313,7 +313,7 @@ const RAW_INITIAL_SONGS = [
   {
     id: "teri_baaton_mein",
     title: "Teri Baaton Mein Aisa Uljha Jiya",
-    artist: "Raghav",
+    artist: "Raghav, Tanishk Bagchi, Asees Kaur",
     album: "Teri Baaton Mein Aisa Uljha Jiya (Single)",
     genre: "Bollywood Pop",
     duration: 228,
