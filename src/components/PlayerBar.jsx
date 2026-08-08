@@ -168,22 +168,31 @@ export const PlayerBar = () => {
       </div>
 
       {/* Mobile Play/Pause & Skip Controls */}
-      <div className="flex md:hidden items-center gap-2.5 flex-shrink-0">
+      <div className="flex md:hidden items-center gap-3 flex-shrink-0">
+        <button
+          onClick={() => setIsShuffle(!isShuffle)}
+          className={`p-1 transition-colors ${
+            isShuffle ? 'text-sky-400' : 'text-slate-400 hover:text-white'
+          }`}
+          title="Shuffle"
+        >
+          <Shuffle className="w-4 h-4" />
+        </button>
         <button
           onClick={handlePrevTrack}
           className="text-slate-300 hover:text-sky-400 active:scale-95 transition-transform p-1"
           title="Previous Track"
         >
-          <SkipBack className="w-5 h-5" />
+          <SkipBack className="w-4 h-4" />
         </button>
         <button
           onClick={togglePlay}
-          className="w-10 h-10 rounded-full bg-sky-400 text-slate-950 flex items-center justify-center shadow-md active:scale-95 transition-transform"
+          className="w-9 h-9 rounded-full bg-sky-400 text-slate-950 flex items-center justify-center shadow-md active:scale-95 transition-transform"
         >
           {isPlaying ? (
-            <Pause className="w-5 h-5 fill-slate-950" />
+            <Pause className="w-4 h-4 fill-slate-950" />
           ) : (
-            <Play className="w-5 h-5 fill-slate-950 ml-0.5" />
+            <Play className="w-4 h-4 fill-slate-950 ml-0.5" />
           )}
         </button>
         <button
@@ -191,7 +200,16 @@ export const PlayerBar = () => {
           className="text-slate-300 hover:text-sky-400 active:scale-95 transition-transform p-1"
           title="Next Track"
         >
-          <SkipForward className="w-5 h-5" />
+          <SkipForward className="w-4 h-4" />
+        </button>
+        <button
+          onClick={() => setIsRepeat(!isRepeat)}
+          className={`p-1 transition-colors ${
+            isRepeat ? 'text-sky-400' : 'text-slate-400 hover:text-white'
+          }`}
+          title="Repeat"
+        >
+          <Repeat className="w-4 h-4" />
         </button>
       </div>
 
