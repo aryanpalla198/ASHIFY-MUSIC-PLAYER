@@ -273,6 +273,96 @@ const RAW_INITIAL_SONGS = [
       { time: 12, text: "I know you want it... but you never gonna get it..." },
       { time: 24, text: "My name is Sheila... Sheila ki jawani..." }
     ]
+  },
+  {
+    id: "udi_udi",
+    title: "Udi Udi",
+    artist: "Aneesh",
+    album: "Udi Udi (Single)",
+    genre: "Indie Pop",
+    duration: 210,
+    coverUrl: "covers/udi_udi.jpg",
+    audioUrl: "audio/udi_udi.m4a",
+    plays: "1,204,900",
+    liked: true,
+    rank: 16,
+    lyrics: [
+      { time: 0, text: "♪ (Smooth acoustic vibes) ♪" },
+      { time: 10, text: "Udi udi jaye man ke patang..." },
+      { time: 20, text: "Man ki patang jaye udi udi..." }
+    ]
+  },
+  {
+    id: "naa_ready",
+    title: "Naa Ready",
+    artist: "Anirudh Ravichander ft. Thalapathy Vijay",
+    album: "Leo OST",
+    genre: "Kollywood Rock",
+    duration: 247,
+    coverUrl: "covers/naa_ready.jpg",
+    audioUrl: "audio/naa_ready.m4a",
+    plays: "180,490,200",
+    liked: true,
+    rank: 17,
+    lyrics: [
+      { time: 0, text: "♪ (Heavy drums and whistle intro) ♪" },
+      { time: 12, text: "Ready-ah? Ready ready ready..." },
+      { time: 25, text: "Naa Ready dhaan varava? Annan na erangi varava?" }
+    ]
+  },
+  {
+    id: "teri_baaton_mein",
+    title: "Teri Baaton Mein Aisa Uljha Jiya",
+    artist: "Raghav",
+    album: "Teri Baaton Mein Aisa Uljha Jiya (Single)",
+    genre: "Bollywood Pop",
+    duration: 228,
+    coverUrl: "covers/teri_baaton_mein.jpg",
+    audioUrl: "audio/teri_baaton_mein.m4a",
+    plays: "65,302,900",
+    liked: true,
+    rank: 18,
+    lyrics: [
+      { time: 0, text: "♪ (Upbeat dance pop intro) ♪" },
+      { time: 10, text: "Teri baaton mein aisa uljha jiya..." },
+      { time: 20, text: "Baithe hi baithe maine dil de diya..." }
+    ]
+  },
+  {
+    id: "bad_boy",
+    title: "Bad Boy",
+    artist: "Badshah & Neeti Mohan",
+    album: "Saaho OST",
+    genre: "Tollywood Pop",
+    duration: 197,
+    coverUrl: "covers/bad_boy.jpg",
+    audioUrl: "audio/bad_boy.m4a",
+    plays: "94,103,400",
+    liked: false,
+    rank: 19,
+    lyrics: [
+      { time: 0, text: "♪ (Fast party electronic beat intro) ♪" },
+      { time: 12, text: "I'm a bad boy... can you be my bad girl?" },
+      { time: 24, text: "Bad boy... bad boy..." }
+    ]
+  },
+  {
+    id: "jhoome_jo_pathaan",
+    title: "Jhoome Jo Pathaan",
+    artist: "Arijit Singh & Sukriti Kakar",
+    album: "Pathaan OST",
+    genre: "Bollywood Pop",
+    duration: 208,
+    coverUrl: "covers/jhoome_jo_pathaan.jpg",
+    audioUrl: "audio/jhoome_jo_pathaan.m4a",
+    plays: "250,409,200",
+    liked: true,
+    rank: 20,
+    lyrics: [
+      { time: 0, text: "♪ (Energetic Pathaan arabic-style string intro) ♪" },
+      { time: 15, text: "Tumne mohabbat ki hai... humne mohabbat ki hai..." },
+      { time: 30, text: "Jhoome jo Pathaan meri jaan... mehfil hi lutt jaye..." }
+    ]
   }
 ];
 
