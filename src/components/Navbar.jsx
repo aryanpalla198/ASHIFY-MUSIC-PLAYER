@@ -18,9 +18,14 @@ export const Navbar = ({ searchQuery, setSearchQuery, selectedCategory, setSelec
           <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-400 to-blue-600 flex items-center justify-center font-black text-slate-950 text-base shadow-sm shadow-sky-500/10">
             A
           </div>
-          <span className="font-black text-lg tracking-wider text-white animate-pulse" style={{ fontFamily: 'Outfit' }}>
-            ASHIFY
-          </span>
+          <div className="flex flex-col">
+            <span className="font-black text-lg leading-none tracking-wider text-white animate-pulse" style={{ fontFamily: 'Outfit' }}>
+              ASHIFY
+            </span>
+            <span className="text-[9px] font-extrabold tracking-widest text-sky-400 uppercase -mt-0.5 leading-none">
+              ARYAN
+            </span>
+          </div>
         </div>
         {/* Profile wrapper on mobile */}
         <div className="flex items-center gap-2">

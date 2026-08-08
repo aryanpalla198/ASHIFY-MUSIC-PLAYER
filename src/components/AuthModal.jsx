@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { X, User, Mail, Lock, Sparkles, Check, Disc3 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-
-const AVATARS = [
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80"
-];
+import { X, User, Mail, Lock, Sparkles, Check, Disc3, ShieldAlert } from 'lucide-react';
+import { useAuth, ASH_AVATARS } from '../context/AuthContext';
 
 export const AuthModal = () => {
-  const { isAuthModalOpen, setIsAuthModalOpen, user, login, logout, updateAvatar } = useAuth();
+  const { 
+    isAuthModalOpen, 
+    setIsAuthModalOpen, 
+    user, 
+    login, 
+    logout, 
+    updateAvatar,
+    registeredUsers,
+    approveUser
+  } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -54,15 +56,27 @@ export const AuthModal = () => {
 
         {/* Logged In View */}
         {user ? (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
-              <img src={user.avatar} alt={user.name} className="w-14 h-14 rounded-full object-cover border-2 border-sky-400 shadow-md" />
+              <img src={user.avatar} alt={user.name} className="w-14 h-14 rounded-full object-cover border border-sky-400 shadow-md bg-slate-950 p-1" />
               <div>
                 <h3 className="font-bold text-lg text-white">{user.name}</h3>
                 <p className="text-xs text-slate-400">{user.email}</p>
-                <span className="inline-block px-2.5 py-0.5 mt-1 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-400 border border-sky-400/30">
-                  {user.plan} Active
-                </span>
+                <div className="mt-1">
+                  {user.isAdmin ? (
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-400 border border-purple-400/30">
+                      Administrator
+                    </span>
+                  ) : user.status === 'approved' ? (
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">
+                      Approved VIP Member
+                    </span>
+                  ) : (
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-400/30 animate-pulse">
+                      Pending Admin Approval
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -70,17 +84,18 @@ export const AuthModal = () => {
             <div>
               <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">Choose Avatar</label>
               <div className="flex items-center gap-3">
-                {AVATARS.map((av, idx) => (
+                {ASH_AVATARS.map((av, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => updateAvatar(av)}
-                    className={`relative w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${
+                    className={`relative w-11 h-11 rounded-full overflow-hidden border-2 transition-all p-0.5 bg-slate-950 ${
                       user.avatar === av ? 'border-sky-400 scale-105 shadow-md shadow-sky-400/30' : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img src={av} alt="avatar" className="w-full h-full object-cover" />
                     {user.avatar === av && (
-                      <div className="absolute inset-0 bg-sky-500/40 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-sky-500/40 flex items-center justify-center rounded-full">
                         <Check className="w-4 h-4 text-white stroke-[3]" />
                       </div>
                     )}
@@ -88,6 +103,48 @@ export const AuthModal = () => {
                 ))}
               </div>
             </div>
+
+            {/* Admin Control Panel */}
+            {user.isAdmin && (
+              <div className="border-t border-slate-800 pt-4 mt-1">
+                <h4 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <ShieldAlert className="w-3.5 h-3.5" />
+                  <span>Admin Control Panel</span>
+                </h4>
+                <div className="flex flex-col gap-2 max-h-40 overflow-y-auto no-scrollbar">
+                  {registeredUsers.filter(u => u.id !== 'admin-id').length === 0 ? (
+                    <p className="text-xs text-slate-500 italic py-2 text-center">No other registered users found.</p>
+                  ) : (
+                    registeredUsers.filter(u => u.id !== 'admin-id').map(u => (
+                      <div key={u.id} className="flex items-center justify-between p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-xs">
+                        <div className="flex items-center gap-2 truncate">
+                          <img src={u.avatar} alt="" className="w-7 h-7 rounded-full bg-slate-900 object-cover border border-slate-700" />
+                          <div className="truncate">
+                            <p className="font-bold text-slate-200 truncate">{u.name}</p>
+                            <p className="text-[10px] text-slate-400 truncate">{u.email}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
+                          {u.status === 'pending' ? (
+                            <button
+                              type="button"
+                              onClick={() => approveUser(u.id)}
+                              className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all font-bold text-[10px]"
+                            >
+                              Approve
+                            </button>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded bg-slate-800/80 text-slate-400 font-semibold text-[9px] uppercase border border-slate-700/60">
+                              Approved
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
 
             <div className="flex gap-3 pt-2">
               <button

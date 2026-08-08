@@ -168,7 +168,14 @@ export const PlayerBar = () => {
       </div>
 
       {/* Mobile Play/Pause & Skip Controls */}
-      <div className="flex md:hidden items-center gap-3 flex-shrink-0">
+      <div className="flex md:hidden items-center gap-2.5 flex-shrink-0">
+        <button
+          onClick={handlePrevTrack}
+          className="text-slate-300 hover:text-sky-400 active:scale-95 transition-transform p-1"
+          title="Previous Track"
+        >
+          <SkipBack className="w-5 h-5" />
+        </button>
         <button
           onClick={togglePlay}
           className="w-10 h-10 rounded-full bg-sky-400 text-slate-950 flex items-center justify-center shadow-md active:scale-95 transition-transform"
@@ -181,9 +188,10 @@ export const PlayerBar = () => {
         </button>
         <button
           onClick={handleNextTrack}
-          className="text-slate-300 hover:text-sky-400 transition-colors p-1"
+          className="text-slate-300 hover:text-sky-400 active:scale-95 transition-transform p-1"
+          title="Next Track"
         >
-          <SkipForward className="w-6 h-6" />
+          <SkipForward className="w-5 h-5" />
         </button>
       </div>
 

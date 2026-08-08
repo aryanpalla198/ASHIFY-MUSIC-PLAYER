@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { INITIAL_SONGS } from '../data/songs';
+import { useAuth } from './AuthContext';
 
 const PlayerContext = createContext();
 
 export const PlayerProvider = ({ children }) => {
+  const { user } = useAuth();
   const [songs, setSongs] = useState(INITIAL_SONGS);
   const [currentSong, setCurrentSong] = useState(INITIAL_SONGS[0]);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -55,6 +57,38 @@ export const PlayerProvider = ({ children }) => {
   });
 
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
+  const checkPlaybackAllowed = () => {
+    if (!user) {
+      alert("Please sign in or register to play songs.");
+      return false;
+    }
+    if (user.isAdmin) {
+      return true;
+    }
+    // Read from localStorage to check real-time approval status
+    const savedUsers = localStorage.getItem('ash_registered_users');
+    if (savedUsers) {
+      const usersList = JSON.parse(savedUsers);
+      const dbUser = usersList.find(u => u.email.toLowerCase() === user.email.toLowerCase());
+      if (dbUser) {
+        if (dbUser.status === 'approved') {
+          // Sync current session status if it changed
+          if (user.status !== 'approved') {
+            user.status = 'approved';
+            localStorage.setItem('ash_user_session', JSON.stringify(user));
+          }
+          return true;
+        }
+      }
+    }
+    
+    if (user.status !== 'approved') {
+      alert("Your login request is pending admin approval. You can play songs once approved by the admin.");
+      return false;
+    }
+    return true;
+  };
+
   const audioRef = useRef(new Audio());
   const synthTimerRef = useRef(null);
 
@@ -152,6 +186,10 @@ export const PlayerProvider = ({ children }) => {
     audio.addEventListener('playing', handlePlay);
 
     if (isPlaying) {
+      if (!checkPlaybackAllowed()) {
+        setIsPlaying(false);
+        return;
+      }
       ensureAudioContext();
       audio.play().then(() => {
         handlePlay();
@@ -177,6 +215,7 @@ export const PlayerProvider = ({ children }) => {
 
   // Handle Play/Pause
   const togglePlay = () => {
+    if (!checkPlaybackAllowed()) return;
     ensureAudioContext();
     const audio = audioRef.current;
 
@@ -204,6 +243,7 @@ export const PlayerProvider = ({ children }) => {
   };
 
   const playSong = (song) => {
+    if (!checkPlaybackAllowed()) return;
     ensureAudioContext();
     setCurrentSong(song);
     setIsPlaying(true);
